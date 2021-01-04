@@ -26,7 +26,9 @@ Output: 0
 * */
 
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LongestSubstringWithoutRepeatingCharacters {
@@ -55,6 +57,42 @@ public class LongestSubstringWithoutRepeatingCharacters {
         }
         //We return the maximum length of our subset
         return max;
+    }
+
+    public int lengthOfLongestSubstringTwo(String str){
+        if(str.length() == 0){
+            return 0;
+        }
+
+        //Create a hash map that stores characters seen
+        Map<Character, Integer> lastSeen = new HashMap<>();
+
+        //Will hold the start and end index to get the substring
+        int[] longest = {0, 1};
+        int startIndex = 0;
+
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+
+            //Check if character is already seen
+            if(lastSeen.containsKey(c)){
+                startIndex = Math.max(startIndex, lastSeen.get(c) + 1);
+            }
+
+            //Update longest if new substring is longer
+            if(longest[1] - longest[0] < i + 1 - startIndex){
+                longest = new int[] {startIndex, i + 1};
+            }
+
+            //Update
+            lastSeen.put(c, i);
+        }
+
+        //Get the result string with appropriate range
+        String result = str.substring(longest[0], longest[1]);
+        int resultLength = result.length();
+
+        return resultLength;
     }
 
     public static void main(String[] args) {

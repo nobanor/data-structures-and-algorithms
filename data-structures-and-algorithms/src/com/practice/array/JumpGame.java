@@ -6,8 +6,6 @@ Each element in the array represents your maximum jump length at that position.
 
 Determine if you are able to reach the last index.
 
-
-
 Example 1:
 
 Input: nums = [2,3,1,1,4]
@@ -27,6 +25,9 @@ Constraints:
 * */
 public class JumpGame {
 
+    /*O(n) time space solution. We need to start from the end and keep track of last good index
+    * Our formula is : if(i + nums[i] >= lastGoodIndexPosition)lastGoodIndexPosition = i;
+    * that way at the end our last good index should be 0 as we iterate throughout our array*/
     public boolean canJump(int[] nums) {
         int lastGoodIndexPosition = nums.length - 1;
 
